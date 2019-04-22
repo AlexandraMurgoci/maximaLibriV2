@@ -59,6 +59,9 @@ public class MainController {
             model.addAttribute("role","ROLE_ADMIN");
             //System.out.println("ADMIN LOGGED");
         }
+        else {
+            model.addAttribute("role","ROLE_ANONYMOUS");
+        }
         return "index";
     }
 }

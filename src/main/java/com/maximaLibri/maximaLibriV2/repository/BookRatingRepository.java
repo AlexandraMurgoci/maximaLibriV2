@@ -42,7 +42,16 @@ public interface BookRatingRepository extends JpaRepository<BookRating, BookRati
 
     @Query(value = "SELECT bx_books.isbn,book_title,book_author,book_rating\n" +
             "FROM public.bx_book_ratings, public.bx_books\n" +
-            "WHERE bx_book_ratings.isbn = bx_books.isbn AND bx_book_ratings.user_id = ?1;",
+            "WHERE bx_book_ratings.isbn = bx_books.isbn AND bx_book_ratings.user_id = ?1",
             nativeQuery = true)
     List<IUserHistoryItem> getUserHistory(Long id);
+
+    @Query(value = "SELECT bx_books.isbn, book_title, book_author, year_of_publication, publisher, image_url_s, image_url_m, image_url_l, average\n" +
+            "FROM public.bx_books, \n" +
+            "\t(SELECT isbn,ROUND(AVG(book_rating),2) as average\n" +
+            "\tFROM public.bx_book_ratings\n" +
+            "\tGROUP BY isbn) as book_rating_avg\n" +
+            "WHERE bx_books.isbn = book_rating_avg.isbn AND bx_books.isbn = ?1 ",
+    nativeQuery = true)
+    IBookAndRating findBookAndRatingById(String isbn);
 }

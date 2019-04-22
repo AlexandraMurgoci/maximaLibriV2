@@ -1,6 +1,7 @@
 package com.maximaLibri.maximaLibriV2.recommender;
 
 import com.maximaLibri.maximaLibriV2.dto.IBookAndRating;
+import com.maximaLibri.maximaLibriV2.dto.IUserHistoryItem;
 import com.maximaLibri.maximaLibriV2.model.BookRating;
 import com.maximaLibri.maximaLibriV2.repository.BookRatingRepository;
 import com.maximaLibri.maximaLibriV2.repository.BookRepository;
@@ -71,5 +72,30 @@ public class QueryTests {
         assertThat(bookList.get(0).getImage_Url_M()).isNotNull();
         assertThat(bookList.get(0).getImage_Url_L()).isNotNull();
         assertThat(bookList.get(0).getAverage()).isNotNull();
+    }
+
+    @Test
+    @Transactional
+    public void getUserHistoryTest() {
+        List<IUserHistoryItem> userHistoryItems = bookRatingRepository.getUserHistory(8L);
+        assertThat(userHistoryItems)
+                .isNotNull()
+                .isNotEmpty();
+        IUserHistoryItem userHistoryItem = userHistoryItems.get(0);
+        assertThat(userHistoryItem.getIsbn()).isNotNull();
+        assertThat(userHistoryItem.getBook_Author()).isNotNull();
+        assertThat(userHistoryItem.getBook_Rating()).isNotNull();
+        assertThat(userHistoryItem.getBook_Title()).isNotNull();
+    }
+
+
+
+    @Test
+    @Transactional
+    public void getBookAndRatingByIsbnTest() {
+        IBookAndRating iBookAndRating = bookRatingRepository.findBookAndRatingById("059035342X");
+        assertThat(iBookAndRating).isNotNull();
+        assertThat(iBookAndRating.getIsbn()).isNotNull();
+        assertThat(iBookAndRating.getAverage()).isNotNull();
     }
 }
