@@ -21,7 +21,7 @@ public interface BookRatingRepository extends JpaRepository<BookRating, BookRati
             nativeQuery=true)
     Float getBookRating(String isbn);
 
-    @Query(value = "SELECT bx_books.isbn, book_title, book_author, year_of_publication, publisher, image_url_s, image_url_m, image_url_l,\n" +
+    /*@Query(value = "SELECT bx_books.isbn, book_title, book_author, year_of_publication, publisher, image_url_s, image_url_m, image_url_l,\n" +
             "average\n" +
             "FROM bx_books,\n" +
             "(\n" +
@@ -38,7 +38,22 @@ public interface BookRatingRepository extends JpaRepository<BookRating, BookRati
             "\t) as selection3\n" +
             "WHERE bx_books.isbn = selection3.isbn;",
           nativeQuery=true)
-        List<IBookAndRating> getTop10();
+        List<IBookAndRating> getTop10();*/
+
+    @Query(value = "SELECT AVG(book_rating) FROM public.bx_book_ratings;",
+    nativeQuery = true)
+    Float getAvg();
+
+    @Query(value = "SELECT bx_books.isbn, book_title, book_author, year_of_publication, publisher, image_url_s, image_url_m, image_url_l, average\n" +
+            "FROM bx_books, \n" +
+            "(SELECT isbn, ROUND((SUM(book_rating)+1000*((SELECT AVG(book_rating) as avgall from public.bx_book_ratings)))/(1000+COUNT(book_rating)),2) as average\n"+
+            "FROM bx_book_ratings\n" +
+            "GROUP BY isbn) as selection\n" +
+            "WHERE bx_books.isbn=selection.isbn\n" +
+            "ORDER BY average DESC\n" +
+            "LIMIT 10;",
+    nativeQuery = true)
+    List<IBookAndRating> getTop10();
 
     @Query(value = "SELECT bx_books.isbn,book_title,book_author,book_rating\n" +
             "FROM public.bx_book_ratings, public.bx_books\n" +
