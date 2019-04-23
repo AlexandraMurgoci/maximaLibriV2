@@ -1,9 +1,6 @@
 package com.maximaLibri.maximaLibriV2.controller;
 
-import com.maximaLibri.maximaLibriV2.model.Book;
-import com.maximaLibri.maximaLibriV2.model.BookRating;
-import com.maximaLibri.maximaLibriV2.model.RoleName;
-import com.maximaLibri.maximaLibriV2.model.User;
+import com.maximaLibri.maximaLibriV2.model.*;
 import com.maximaLibri.maximaLibriV2.service.BookService;
 import com.maximaLibri.maximaLibriV2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,33 +51,40 @@ public class BookController {
     public String bookShow(Model model, @PathVariable(required = true, name = "isbn") String isbn) {
         model.addAttribute("book",bookService.getBookAndRatingById(isbn));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        BookRating bookRating = null;
+        Long userId = null;
         if(authentication.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_USER.toString()))) {
             model.addAttribute("role","ROLE_USER");
             User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-            BookRating bookRating = bookService.getBookRatingByUserAndIsbn(isbn,user.getId());
-            if(bookRating==null) model.addAttribute("userRating",0);
-            else model.addAttribute("userRating",bookRating.getBookRating());
+            bookRating = bookService.getBookRatingByUserAndIsbn(isbn,user.getId());
+            userId = user.getId();
         }
         else if(authentication.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
             model.addAttribute("role","ROLE_ADMIN");
             User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-            BookRating bookRating = bookService.getBookRatingByUserAndIsbn(isbn,user.getId());
-            if(bookRating==null) model.addAttribute("userRating",0);
-            else model.addAttribute("userRating",bookRating.getBookRating());
+            bookRating = bookService.getBookRatingByUserAndIsbn(isbn,user.getId());
+            userId = user.getId();
         }
         else {
             model.addAttribute("role","ROLE_ANONYMOUS");
+            model.addAttribute("userRating","0");
         }
-
+        if(bookRating==null) {
+            BookRatingId bookRatingId = new BookRatingId();
+            bookRatingId.setIsbn(isbn);
+            bookRatingId.setUserId(userId);
+            bookRating = new BookRating();
+            bookRating.setBookRatingId(bookRatingId);
+            bookRating.setBookRating(0);
+        }
+        model.addAttribute("bookRating",bookRating);
         return "bookShow";
     }
 
-    @RequestMapping(value="/show/{isbn}", method = RequestMethod.POST)
-    public String bookShowRateBook(Model model, @PathVariable(required = true, name = "isbn") String isbn,
-                                   @ModelAttribute(name = "userRating") Integer userRating) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        bookService.saveBookRating(user.getId(),isbn,userRating);
-        return "bookShow";
+    @RequestMapping(value="/show", method = RequestMethod.POST)
+    public String bookShowRateBook(//Model model, //@PathVariable(required = true, name = "isbn") String isbn,
+                                   @ModelAttribute("bookRating") BookRating bookRating) {
+        bookService.saveBookRating(bookRating);
+        return "redirect:/index";
     }
 }

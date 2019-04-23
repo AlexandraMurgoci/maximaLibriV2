@@ -57,4 +57,8 @@ public class BookService {
         bookRating.setBookRating(rating);
         bookRatingRepository.save(bookRating);
     }
+
+    public void saveBookRating(BookRating bookRating) {
+        bookRatingRepository.save(bookRating);
+    }
 }

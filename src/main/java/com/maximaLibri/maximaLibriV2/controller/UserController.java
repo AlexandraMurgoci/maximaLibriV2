@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+import static com.maximaLibri.maximaLibriV2.controller.AddRoleToModel.addRoleToModel;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -28,7 +30,10 @@ public class UserController {
         List<IUserHistoryItem> historyItemList = bookRatingRepository.getUserHistory(user.getId());
         model.addAttribute("user",user);
         model.addAttribute("userHistory",historyItemList);
+        addRoleToModel(model);
         return "userMe";
     }
+
+
 
 }

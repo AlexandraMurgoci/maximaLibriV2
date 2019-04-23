@@ -39,11 +39,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/img/**",
                         "/webjars/**",
                         "/",
-                        "/index").permitAll()
+                        "/index",
+                        "/book/show/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/book/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
-                //.anyRequest().authenticated()
+                .antMatchers("/book/show").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -55,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
-        http.addFilterAfter(AuthentificationFilter(), BasicAuthenticationFilter.class);
+        //http.addFilterAfter(AuthentificationFilter(), BasicAuthenticationFilter.class);
     }
 
     @Bean

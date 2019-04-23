@@ -44,19 +44,18 @@
     <p th:text="${book.getPublisher()}">Publisher</p>
     <p th:text="${book.getAverage()}">Rating</p>
     <img th:src="@{${book.getImage_Url_L()}}"/>
-    <div th:if="${role} == 'ROLE_USER'">
-        <a href="admin/bookEdit/1" th:href="@{/book/admin/bookEdit/__${book.getIsbn()}__}">Edit</a>
-    </div>
 
     <div th:if="${role} == 'ROLE_ADMIN'">
         <a href="admin/bookEdit/1" th:href="@{/book/admin/bookEdit/__${book.getIsbn()}__}">Edit</a>
     </div>
-    <form th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'" class="form-group" action="/book/show/__${book.getIsbn()}__" th:action="@{/book/show/__${book.getIsbn()}__}" method="post">
+    <form th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'" class="form-group" th:action="@{/book/show}" th:object="${bookRating}" method="post">
 
         <div class="form-group">
-            <label th:if="${userRating} == 0" for="userRating">Rate this book!</label>
-            <label th:if="${userRating} != 0" for="userRating">You already rated this book</label>
-            <input type="text" class="form-control" id="userRating" th:field="${userRating}" />
+            <input type="hidden" class="form-control" id="userId" th:field="*{bookRatingId.userId}" />
+            <input type="hidden" class="form-control" id="isbn" th:field="*{bookRatingId.isbn}" />
+            <label th:if="${bookRating.bookRating} != 0" for="userRating">You already rated this book</label>
+            <label th:if="${bookRating.bookRating} == 0" for="userRating">Rate this book!</label>
+            <input type="text" class="form-control" id="userRating" th:field="*{bookRating}" />
         </div>
         <button type="submit" class="btn btn-primary">Rate!</button>
     </form>
