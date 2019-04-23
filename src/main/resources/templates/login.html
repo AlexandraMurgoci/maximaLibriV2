@@ -22,8 +22,14 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" th:href="@{/}">Registration and
-                Login Module</a>
+            <a class="navbar-brand" href="#" th:href="@{/}">Maxima Libri</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'"><a th:href="@{/user}">My account</a></li>
+                <li th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'"><a th:href="@{/logout}">Logout</a></li>
+                <li th:if="${role} != 'ROLE_USER' and ${role} != 'ROLE_ADMIN'"><a th:href="@{/login}">Login</a></li>
+            </ul>
         </div>
     </div>
 </nav>

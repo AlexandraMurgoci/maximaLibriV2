@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import static com.maximaLibri.maximaLibriV2.controller.AddRoleToModel.addRoleToModel;
+
 @Controller
 public class MainController {
 
@@ -29,6 +31,7 @@ public class MainController {
 
     @GetMapping("/login")
     public String login(Model model) {
+        addRoleToModel(model);
         return "login";
     }
 
@@ -45,23 +48,18 @@ public class MainController {
     @GetMapping("/index")
     public String showHomePage(Model model) {
         model.addAttribute("bookList", bookService.getTop10());
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println(authentication.getPrincipal());
-//        System.out.println(authentication.getDetails());
-//        System.out.println(authentication.getCredentials());
-//        System.out.println(authentication.getAuthorities());
-//        System.out.println(authentication.getName());
-        if(authentication.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_USER.toString()))) {
-            model.addAttribute("role","ROLE_USER");
-            //System.out.println("USER LOGGED");
-        }
-        else if(authentication.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
-            model.addAttribute("role","ROLE_ADMIN");
-            //System.out.println("ADMIN LOGGED");
-        }
-        else {
-            model.addAttribute("role","ROLE_ANONYMOUS");
-        }
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if(authentication.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_USER.toString()))) {
+//            model.addAttribute("role","ROLE_USER");
+//            //System.out.println("USER LOGGED");
+//        }
+//        else if(authentication.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_ADMIN.toString()))) {
+//            model.addAttribute("role","ROLE_ADMIN");
+//        }
+//        else {
+//            model.addAttribute("role","ROLE_ANONYMOUS");
+//        }
+        addRoleToModel(model);
         return "index";
     }
 }
