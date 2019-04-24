@@ -38,9 +38,9 @@
 <br>
 <div class="container">
 
-    <h2>Maxima Libri</h2>
+    <h2></h2>
 
-    <h2>Welcome</h2>
+    <h2></h2>
     <!--<div sec:authorize="hasRole('ROLE_USER')">Text visible to user.</div>
     <div sec:authorize="hasRole('ROLE_ADMIN')">Text visible to admin.</div>
     <div sec:authorize="isAuthenticated()">
@@ -54,10 +54,10 @@
     <!--<p th:if="${role} == 'ROLE_USER'">Text only for user</p>
     <p th:if="${role} == 'ROLE_ADMIN'">Text only for admin</p>-->
 
-    <!--<form id="searchForm" th:action="@{/search}" th:object="${searchForm}" method="post" class="form-group">
+    <form id="searchForm" class="form-group" th:action="@{/search}" th:object="${searchForm}" method="post">
         <input type="text" id="searchParameter" th:field="*{searchParameter}">
-        <input type="button" value="Search" class="btn btn-primary"/>
-    </form>-->
+        <input type="submit" value="Search" class="btn btn-primary"/>
+    </form>
 
     <div th:each="book : ${bookList}">
         <p th:text="${book.getIsbn()}">Isbn</p>

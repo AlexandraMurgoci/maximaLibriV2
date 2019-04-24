@@ -38,10 +38,11 @@ public class MainController {
         return "login";
     }
 
-//    @PostMapping
-//    public String search(@ModelAttribute SearchForm searchForm) {
-//        return "redirect:/book/"+searchForm.getSearchParameter();
-//    }
+    @PostMapping("/search")
+    public String search(@ModelAttribute SearchForm searchForm) {
+        System.out.println("hello");
+        return "redirect:/book/"+searchForm.getSearchParameter();
+    }
 
 
 

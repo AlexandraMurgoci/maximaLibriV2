@@ -22,6 +22,6 @@ public class AddRoleToModel {
         else {
             model.addAttribute("role","ROLE_ANONYMOUS");
         }
-        //model.addAttribute("searchForm",new SearchForm());
+        model.addAttribute("searchForm",new SearchForm());
     }
 }
