@@ -40,16 +40,14 @@ public class MainController {
 
     @PostMapping("/search")
     public String search(@ModelAttribute SearchForm searchForm) {
-        System.out.println("hello");
         return "redirect:/book/"+searchForm.getSearchParameter();
     }
 
 
-
-    @GetMapping("/user")
-    public String userIndex() {
-        return "user/index";
-    }
+//    @GetMapping("/user")
+//    public String userIndex() {
+//        return "user/index";
+//    }
 
 //    @GetMapping("/home")
 //    public String home() {return "home";}
