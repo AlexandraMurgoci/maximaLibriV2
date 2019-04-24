@@ -40,8 +40,9 @@
 <div class="container">
 
     <p>
-        Welcome <span sec:authentication="principal.username">User</span>
+
     </p>
+    <h3></h3>
 
     <table class="table">
         <thead>
@@ -53,18 +54,22 @@
             <th>Publisher</th>
             <th>Rating</th>
             <th>Image</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="book : ${bookList}">
-            <td th:text="${book.isbn}">1</td>
+            <td th:text="${book.getIsbn()}">1</td>
             <td>
                 <a th:href="@{/book/show/__${book.getIsbn()}__}"><p th:text="${book.getBook_Title()}">Title</p></a>
             </td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.yearOfPublication}"></td>
-            <td th:text="${book.publisher}"></td>
-            <td th:text="${book.rating}"></td>
+            <td th:text="${book.getBook_Author()}"></td>
+            <td th:text="${book.getYear_Of_Publication()}"></td>
+            <td th:text="${book.getPublisher()}"></td>
+            <td th:text="${book.getAverage()}"></td>
+            <td>
+                <img th:src="@{${book.getImage_Url_S()}}"/>
+            </td>
             <td th:if="${role} == 'ROLE_ADMIN'">
                 <a href="admin/bookEdit/1" th:href="@{/book/admin/bookEdit/__${book.getIsbn()}__}">Edit</a>
             </td>

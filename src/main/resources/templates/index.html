@@ -54,6 +54,11 @@
     <!--<p th:if="${role} == 'ROLE_USER'">Text only for user</p>
     <p th:if="${role} == 'ROLE_ADMIN'">Text only for admin</p>-->
 
+    <!--<form id="searchForm" th:action="@{/search}" th:object="${searchForm}" method="post" class="form-group">
+        <input type="text" id="searchParameter" th:field="*{searchParameter}">
+        <input type="button" value="Search" class="btn btn-primary"/>
+    </form>-->
+
     <div th:each="book : ${bookList}">
         <p th:text="${book.getIsbn()}">Isbn</p>
         <a th:href="@{/book/show/__${book.getIsbn()}__}"><p th:text="${book.getBook_Title()}">Title</p></a>

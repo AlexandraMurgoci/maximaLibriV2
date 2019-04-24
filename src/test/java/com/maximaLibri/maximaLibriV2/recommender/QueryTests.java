@@ -46,6 +46,7 @@ public class QueryTests {
     public void findTop10Test() {
         List<IBookAndRating> bookList =  bookRatingRepository.getTop10();
         assertThat(bookList)
+                .isNotNull()
                 .isNotEmpty()
                 .hasSize(10);
 //        for (IBookAndRating iBookAndRating : bookList) {
@@ -97,5 +98,24 @@ public class QueryTests {
         assertThat(iBookAndRating).isNotNull();
         assertThat(iBookAndRating.getIsbn()).isNotNull();
         assertThat(iBookAndRating.getAverage()).isNotNull();
+    }
+
+    @Test
+    @Transactional
+    public void findSearchResultTest() {
+        List<IBookAndRating> bookList = bookRepository.findSearchResults("Harry");
+        assertThat(bookList)
+                .isNotNull()
+                .isNotEmpty();
+
+        assertThat(bookList.get(0).getIsbn()).isNotNull();
+        assertThat(bookList.get(0).getBook_Title()).isNotNull();
+        assertThat(bookList.get(0).getBook_Author()).isNotNull();
+        assertThat(bookList.get(0).getYear_Of_Publication()).isNotNull();
+        assertThat(bookList.get(0).getPublisher()).isNotNull();
+        assertThat(bookList.get(0).getImage_Url_S()).isNotNull();
+        assertThat(bookList.get(0).getImage_Url_M()).isNotNull();
+        assertThat(bookList.get(0).getImage_Url_L()).isNotNull();
+        assertThat(bookList.get(0).getAverage()).isNotNull();
     }
 }

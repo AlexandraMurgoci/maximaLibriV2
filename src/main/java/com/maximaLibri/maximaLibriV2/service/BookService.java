@@ -61,4 +61,8 @@ public class BookService {
     public void saveBookRating(BookRating bookRating) {
         bookRatingRepository.save(bookRating);
     }
+
+    public List<IBookAndRating> getSearchResults(String searchParameter) {
+        return bookRepository.findSearchResults(searchParameter);
+    }
 }

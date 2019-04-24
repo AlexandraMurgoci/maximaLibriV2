@@ -30,6 +30,13 @@ public class BookController {
         return "bookList";
     }
 
+    @GetMapping(value = "/{searchParameter}")
+    public String bookListSearchResults(Model model, @PathVariable(name="searchParameter") String searchParameter) {
+        addRoleToModel(model);
+        model.addAttribute("bookList", bookService.getSearchResults(searchParameter));
+        return "bookList";
+    }
+
     @RequestMapping(value={"/admin/bookEdit","/admin/bookEdit/{isbn}"}, method = RequestMethod.GET)
     public String bookEditForm(Model model, @PathVariable(required = false, name = "isbn") String isbn) {
         if (null != isbn) {

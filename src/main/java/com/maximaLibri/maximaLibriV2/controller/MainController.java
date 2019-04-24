@@ -1,6 +1,7 @@
 package com.maximaLibri.maximaLibriV2.controller;
 
 
+import com.maximaLibri.maximaLibriV2.dto.SearchForm;
 import com.maximaLibri.maximaLibriV2.model.RoleName;
 import com.maximaLibri.maximaLibriV2.service.BookService;
 import com.maximaLibri.maximaLibriV2.service.UserService;
@@ -12,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import static com.maximaLibri.maximaLibriV2.controller.AddRoleToModel.addRoleToModel;
 
@@ -34,6 +37,11 @@ public class MainController {
         addRoleToModel(model);
         return "login";
     }
+
+//    @PostMapping
+//    public String search(@ModelAttribute SearchForm searchForm) {
+//        return "redirect:/book/"+searchForm.getSearchParameter();
+//    }
 
 
 
