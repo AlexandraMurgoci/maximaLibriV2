@@ -4,6 +4,7 @@ import com.maximaLibri.maximaLibriV2.dto.UserRegistrationDto;
 import com.maximaLibri.maximaLibriV2.model.ConfirmationToken;
 import com.maximaLibri.maximaLibriV2.model.User;
 import com.maximaLibri.maximaLibriV2.repository.ConfirmationTokenRepository;
+import com.maximaLibri.maximaLibriV2.repository.UserRepository;
 import com.maximaLibri.maximaLibriV2.service.EmailSenderService;
 import com.maximaLibri.maximaLibriV2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class RegistrationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
@@ -62,18 +66,35 @@ public class RegistrationController {
         mailMessage.setSubject("Complete Registration!");
         mailMessage.setFrom("georgianaalexandra328@gmail.com");
         mailMessage.setText("To confirm your account, please click here : "
-                +"http://localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
+                +"http://localhost:8080/registration/confirm-account?token="+confirmationToken.getConfirmationToken());
 
         emailSenderService.sendEmail(mailMessage);
 
         return "redirect:/registration?success";
     }
 
-    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
+    @GetMapping(value="/confirm-account/{confirmationToken}")
+    public String confirmUserAccount(Model model, @PathVariable("confirmationToken") String confirmationToken) {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+        if(token != null)
+        {
+            User user = userRepository.findByEmail(token.getUser().getEmail());
+            user.setEnabled(true);
+            userRepository.save(user);
+            return "redirect:/login";
+        }
+        else
+        {
+            return "error";
+        }
+
+    }
+
+    /*@RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
     {
+        System.out.println("Am intrat si aici");
         ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
-
         if(token != null)
         {
             User user = userService.findByEmail(token.getUser().getEmail());
@@ -88,5 +109,5 @@ public class RegistrationController {
         }
 
         return modelAndView;
-    }
+    }*/
 }

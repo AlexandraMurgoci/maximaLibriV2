@@ -3,8 +3,10 @@ package com.maximaLibri.maximaLibriV2.recommender;
 import com.maximaLibri.maximaLibriV2.dto.IBookAndRating;
 import com.maximaLibri.maximaLibriV2.dto.IUserHistoryItem;
 import com.maximaLibri.maximaLibriV2.model.BookRating;
+import com.maximaLibri.maximaLibriV2.model.ConfirmationToken;
 import com.maximaLibri.maximaLibriV2.repository.BookRatingRepository;
 import com.maximaLibri.maximaLibriV2.repository.BookRepository;
+import com.maximaLibri.maximaLibriV2.repository.ConfirmationTokenRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class QueryTests {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private ConfirmationTokenRepository confirmationTokenRepository;
 
     @Test
     @Transactional
@@ -117,5 +122,12 @@ public class QueryTests {
         assertThat(bookList.get(0).getImage_Url_M()).isNotNull();
         assertThat(bookList.get(0).getImage_Url_L()).isNotNull();
         assertThat(bookList.get(0).getAverage()).isNotNull();
+    }
+
+    @Test
+    @Transactional
+    public void getConfirmationTokenTest() {
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByConfirmationToken("bff9dab8-69a2-420b-9c9c-26963183eeee");
+        assertThat(confirmationToken).isNotNull();
     }
 }
