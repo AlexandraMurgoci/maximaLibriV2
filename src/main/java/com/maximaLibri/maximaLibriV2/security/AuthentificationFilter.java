@@ -1,5 +1,6 @@
 package com.maximaLibri.maximaLibriV2.security;
 
+import com.maximaLibri.maximaLibriV2.model.User;
 import com.maximaLibri.maximaLibriV2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
