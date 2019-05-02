@@ -40,7 +40,7 @@ public class MainController {
 
     @PostMapping("/search")
     public String search(@ModelAttribute SearchForm searchForm) {
-        return "redirect:/book/"+searchForm.getSearchParameter();
+        return "redirect:/book/"+searchForm.getSearchParameter().replace(' ','+');
     }
 
 

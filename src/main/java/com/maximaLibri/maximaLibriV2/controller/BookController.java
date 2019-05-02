@@ -33,7 +33,7 @@ public class BookController {
     @GetMapping(value = "/{searchParameter}")
     public String bookListSearchResults(Model model, @PathVariable(name="searchParameter") String searchParameter) {
         addRoleToModel(model);
-        model.addAttribute("bookList", bookService.getSearchResults(searchParameter));
+        model.addAttribute("bookList", bookService.getSearchResults(searchParameter.replace('+',' ')));
         return "bookList";
     }
 

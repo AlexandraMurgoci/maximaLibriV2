@@ -58,6 +58,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
+    /** return user with given email; method necesary for spring security */
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if (user == null){
@@ -68,6 +69,7 @@ public class UserService implements UserDetailsService {
                 mapRolesToAuthorities(user.getRoles()));
     }
 
+    /** transforms the role entity into the collection of strings; necesary for spring security */
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().toString()))

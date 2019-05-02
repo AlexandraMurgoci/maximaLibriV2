@@ -32,6 +32,7 @@ public class BookService {
         return bookRepository.save(book);
     }
 
+    /** get the 10 best books relative to popularity and average rating */
     public List<IBookAndRating> getTop10() {
         return bookRatingRepository.getTop10();
     }
@@ -62,6 +63,7 @@ public class BookService {
         bookRatingRepository.save(bookRating);
     }
 
+    /** return list of items that contain the parameter in the isbn, title or author*/
     public List<IBookAndRating> getSearchResults(String searchParameter) {
         return bookRepository.findSearchResults(searchParameter);
     }

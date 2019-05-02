@@ -26,6 +26,7 @@ public class RecommenderService {
     @Autowired
     BookRepository bookRepository;
 
+    /** gives 5 IBookAndRating items based on user similarity */
     public List<IBookAndRating> recommendForUser(User user) {
 
         SortedMap<Long, SortedMap<String, Integer> > utilityMatrix = makeUtilityMatrix();
@@ -77,6 +78,7 @@ public class RecommenderService {
         return null;
     }*/
 
+    /** returns the utility maxtrix for the recommender; meant for internal use and testing */
     public SortedMap<Long, SortedMap<String, Integer> > makeUtilityMatrix() {
         List<BookRating> bookRatingList = bookRatingRepository.findAll();
         SortedMap<Long, SortedMap<String, Integer> > utilityMatrix = new TreeMap<>();
