@@ -34,6 +34,7 @@ public class BookController {
     public String bookListSearchResults(Model model, @PathVariable(name="searchParameter") String searchParameter) {
         addRoleToModel(model);
         model.addAttribute("bookList", bookService.getSearchResults(searchParameter.replace('+',' ')));
+        model.addAttribute("goodreadsSearchLink","https://www.goodreads.com/search?q="+searchParameter);
         return "bookList";
     }
 
