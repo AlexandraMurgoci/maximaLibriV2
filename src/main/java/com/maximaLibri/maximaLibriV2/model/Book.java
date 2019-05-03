@@ -1,5 +1,7 @@
 package com.maximaLibri.maximaLibriV2.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -34,6 +36,12 @@ public class Book {
 
     @Column(name = "image_url_l")
     private String imageUrlL;
+
+    /*@Column
+    private String description;
+
+    @Column
+    private String keywords;*/
 
     public Book() {
     }
@@ -113,6 +121,22 @@ public class Book {
         this.imageUrlL = imageUrlL;
     }
 
+    /*public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }*/
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,6 +161,8 @@ public class Book {
                 ", imageUrlS='" + imageUrlS + '\'' +
                 ", imageUrlM='" + imageUrlM + '\'' +
                 ", imageUrlL='" + imageUrlL + '\'' +
+                /*", description='" + description + '\'' +
+                ", keywords='" + keywords + '\'' +*/
                 '}';
     }
 }

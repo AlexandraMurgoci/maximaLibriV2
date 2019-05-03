@@ -11,5 +11,4 @@ public interface IBookAndRating {
     String getImage_Url_M();
     String getImage_Url_L();
     Float getAverage();
-
 }

@@ -58,6 +58,7 @@ public class BookController {
     @RequestMapping(value="/show/{isbn}", method = RequestMethod.GET)
     public String bookShow(Model model, @PathVariable(required = true, name = "isbn") String isbn) {
         model.addAttribute("book",bookService.getBookAndRatingById(isbn));
+        model.addAttribute("description",bookService.getBookDescription(isbn));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BookRating bookRating = null;
         Long userId = null;

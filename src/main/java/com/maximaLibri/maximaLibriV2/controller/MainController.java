@@ -42,13 +42,10 @@ public class MainController {
     @GetMapping("/checkEnabled")
     public String checkUserIsEnabled() {
         User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        System.out.println(user.getEmail()+" "+user.getEnabled());
         if(user.getEnabled()) {
-            System.out.println("User enabled");
             return "redirect:/index";
         }
         else {
-            System.out.println("User not enabled");
             return "redirect:/logout";
         }
     }

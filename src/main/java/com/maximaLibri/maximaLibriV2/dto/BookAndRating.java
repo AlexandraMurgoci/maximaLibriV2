@@ -20,10 +20,12 @@ public class BookAndRating {
 
     private Float rating;
 
+    private String description;
+
     public BookAndRating() {
     }
 
-    public BookAndRating(IBookAndRating iBookAndRating) {
+    public BookAndRating(IBookAndRating iBookAndRating, String description) {
         this.isbn = iBookAndRating.getIsbn();
         this.title = iBookAndRating.getBook_Title();
         this.author = iBookAndRating.getBook_Author();
@@ -33,77 +35,17 @@ public class BookAndRating {
         this.imageUrlM = iBookAndRating.getImage_Url_M();
         this.imageUrlL = iBookAndRating.getImage_Url_L();
         this.rating = iBookAndRating.getAverage();
+        this.description = description;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public Integer getYearOfPublication() {
-        return yearOfPublication;
-    }
-
-    public void setYearOfPublication(Integer yearOfPublication) {
-        this.yearOfPublication = yearOfPublication;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getImageUrlS() {
-        return imageUrlS;
-    }
-
-    public void setImageUrlS(String imageUrlS) {
-        this.imageUrlS = imageUrlS;
-    }
-
-    public String getImageUrlM() {
-        return imageUrlM;
-    }
-
-    public void setImageUrlM(String imageUrlM) {
-        this.imageUrlM = imageUrlM;
-    }
-
-    public String getImageUrlL() {
-        return imageUrlL;
-    }
-
-    public void setImageUrlL(String imageUrlL) {
-        this.imageUrlL = imageUrlL;
-    }
-
-    public Float getRating() {
-        return rating;
-    }
-
-    public void setRating(Float rating) {
-        this.rating = rating;
-    }
+    String getIsbn() {return isbn;}
+    String getBook_Title() {return title;}
+    String getBook_Author() {return author;}
+    Integer getYear_Of_Publication() {return yearOfPublication;}
+    String getPublisher() {return publisher;}
+    String getImage_Url_S() {return imageUrlS;}
+    String getImage_Url_M() {return imageUrlM;}
+    String getImage_Url_L() {return imageUrlL;}
+    Float getAverage() {return rating;}
+    String getDescription() {return description;}
 }
