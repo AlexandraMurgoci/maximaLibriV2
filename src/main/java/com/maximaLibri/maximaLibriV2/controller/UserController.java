@@ -2,6 +2,7 @@ package com.maximaLibri.maximaLibriV2.controller;
 
 import com.maximaLibri.maximaLibriV2.dto.IBookAndRating;
 import com.maximaLibri.maximaLibriV2.dto.IUserHistoryItem;
+import com.maximaLibri.maximaLibriV2.dto.StringTO;
 import com.maximaLibri.maximaLibriV2.model.User;
 import com.maximaLibri.maximaLibriV2.recommender.RecommenderService;
 import com.maximaLibri.maximaLibriV2.repository.BookRatingRepository;
@@ -11,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -44,9 +47,17 @@ public class UserController {
             model.addAttribute("RecommendationsList", new ArrayList<IBookAndRating>());
         }
         addRoleToModel(model);
+        model.addAttribute("searchForUsers",new StringTO());
         return "userMe";
     }
 
-
+    @PostMapping("/search-users")
+    public String searchForUsers(@ModelAttribute StringTO searchForUsers) {
+        User user = userService.findByEmail(searchForUsers.getStringParameter().trim());
+        System.out.println(user);
+        if (user==null) user = userService.findByUsername(searchForUsers.getStringParameter().trim());
+        Long userId = user.getId();
+        return "redirect:/admin/user/"+userId;
+    }
 
 }

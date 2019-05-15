@@ -142,6 +142,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", location='" + location + '\'' +
                 ", age=" + age +
+                ", enabled=" + enabled +
+                ", roles=" + roles +
                 '}';
     }
 }

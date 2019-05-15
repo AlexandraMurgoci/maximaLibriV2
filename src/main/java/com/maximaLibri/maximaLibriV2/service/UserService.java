@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -88,5 +89,27 @@ public class UserService implements UserDetailsService {
         bookRating.setBookRatingId(bookRatingId);
         bookRating.setBookRating(rating);
         bookRatingRepository.save(bookRating);
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    public void disableUserById(Long id) {
+        User user = findById(id);
+        user.setEnabled(false);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void enableUserById(Long id) {
+        User user = findById(id);
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 }

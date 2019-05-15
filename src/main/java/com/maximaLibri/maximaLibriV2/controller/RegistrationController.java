@@ -81,6 +81,7 @@ public class RegistrationController {
             User user = userRepository.findByEmail(token.getUser().getEmail());
             user.setEnabled(true);
             userRepository.save(user);
+            confirmationTokenRepository.delete(token);
             return "redirect:/login";
         }
         else
