@@ -1,5 +1,6 @@
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,7 +8,10 @@
 
     <link rel="stylesheet" type="text/css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-    <title>Congratulations!</title>
+    <meta charset="UTF-8">
+
+    <title>Contact Admin</title>
+
 </head>
 <body>
 
@@ -28,14 +32,16 @@
                 <li th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'"><a th:href="@{/user}">My account</a></li>
                 <li th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'"><a th:href="@{/logout}">Logout</a></li>
                 <li th:if="${role} != 'ROLE_USER' and ${role} != 'ROLE_ADMIN'"><a th:href="@{/login}">Login</a></li>
-                <li ><a th:href="@{/contact-admin}">Contact admin</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<center>
-    <h3>Congratulations! Your account has been activated and email is verified!</h3>
-</center>
+<h2>Contact Admin</h2>
+<form id="messageForAdmin" class="form-group" th:action="@{/contact-admin}" th:object="${messageForAdmin}" method="post">
+    <textarea  rows = "20" cols = "80" th:field = "*{stringParameter}" form = "messageForAdmin" >... </textarea>
+    <input type="submit" value="Send" class="btn btn-primary"/>
+</form>
+
 </body>
 </html>

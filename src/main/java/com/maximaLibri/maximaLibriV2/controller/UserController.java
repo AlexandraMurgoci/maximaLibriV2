@@ -31,7 +31,6 @@ public class UserController {
 
     @GetMapping(value = {"","/"})
     public String showUser(Model model) {
-        System.out.println("am intrat aici");
         User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         List<IUserHistoryItem> historyItemList = bookRatingRepository.getUserHistory(user.getId());
         model.addAttribute("user",user);

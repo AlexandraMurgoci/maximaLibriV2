@@ -1,6 +1,6 @@
 package com.maximaLibri.maximaLibriV2.controller;
 
-import com.maximaLibri.maximaLibriV2.dto.SearchForm;
+import com.maximaLibri.maximaLibriV2.dto.StringTO;
 import com.maximaLibri.maximaLibriV2.model.RoleName;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,6 +22,6 @@ public class AddRoleToModel {
         else {
             model.addAttribute("role","ROLE_ANONYMOUS");
         }
-        model.addAttribute("searchForm",new SearchForm());
+        model.addAttribute("searchForm",new StringTO());
     }
 }

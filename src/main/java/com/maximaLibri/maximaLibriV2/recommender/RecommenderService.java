@@ -26,7 +26,14 @@ public class RecommenderService {
     @Autowired
     BookRepository bookRepository;
 
-    /** gives 5 IBookAndRating items based on user similarity */
+    /** gives 5 IBookAndRating items based on user cosine similarity and
+     * book keywords extracted from their goodreads descriptions*/
+    public List<IBookAndRating> recommendForUserAddedBookSimilarity(User user) {
+
+        return null;
+    }
+
+    /** gives 5 IBookAndRating items based on user cosine similarity */
     public List<IBookAndRating> recommendForUser(User user) {
 
         SortedMap<Long, SortedMap<String, Integer> > utilityMatrix = makeUtilityMatrix();

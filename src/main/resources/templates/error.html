@@ -29,6 +29,7 @@
                 <li th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'"><a th:href="@{/user}">My account</a></li>
                 <li th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'"><a th:href="@{/logout}">Logout</a></li>
                 <li th:if="${role} != 'ROLE_USER' and ${role} != 'ROLE_ADMIN'"><a th:href="@{/login}">Login</a></li>
+                <li ><a th:href="@{/contact-admin}">Contact admin</a></li>
             </ul>
         </div>
     </div>

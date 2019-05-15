@@ -29,6 +29,7 @@
                 <li th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'"><a th:href="@{/user}">My account</a></li>
                 <li th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'"><a th:href="@{/logout}">Logout</a></li>
                 <li th:if="${role} != 'ROLE_USER' and ${role} != 'ROLE_ADMIN'"><a th:href="@{/login}">Login</a></li>
+                <li ><a th:href="@{/contact-admin}">Contact admin</a></li>
             </ul>
         </div>
     </div>
@@ -55,7 +56,7 @@
     <p th:if="${role} == 'ROLE_ADMIN'">Text only for admin</p>-->
 
     <form id="searchForm" class="form-group" th:action="@{/search}" th:object="${searchForm}" method="post">
-        <input type="text" id="searchParameter" th:field="*{searchParameter}">
+        <input type="text" id="stringParameter" th:field="*{stringParameter}">
         <input type="submit" value="Search" class="btn btn-primary"/>
     </form>
 

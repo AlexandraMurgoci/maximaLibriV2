@@ -1,15 +1,13 @@
 package com.maximaLibri.maximaLibriV2.controller;
 
 
-import com.maximaLibri.maximaLibriV2.dto.SearchForm;
-import com.maximaLibri.maximaLibriV2.model.RoleName;
+import com.maximaLibri.maximaLibriV2.dto.StringTO;
 import com.maximaLibri.maximaLibriV2.model.User;
 import com.maximaLibri.maximaLibriV2.service.BookService;
+import com.maximaLibri.maximaLibriV2.service.EmailSenderService;
 import com.maximaLibri.maximaLibriV2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +25,9 @@ public class MainController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     @GetMapping(value = {"/",""})
     public String root() {
@@ -51,8 +52,8 @@ public class MainController {
     }
 
     @PostMapping("/search")
-    public String search(@ModelAttribute SearchForm searchForm) {
-        return "redirect:/book/"+searchForm.getSearchParameter().replace(' ','+');
+    public String search(@ModelAttribute StringTO searchParameter) {
+        return "redirect:/book/"+ searchParameter.getStringParameter().replace(' ','+');
     }
 
 
@@ -80,5 +81,25 @@ public class MainController {
 //        }
         addRoleToModel(model);
         return "index";
+    }
+
+    @GetMapping("/contact-admin")
+    public String contactAdmin(Model model) {
+
+        addRoleToModel(model);
+        model.addAttribute("messageForAdmin", new StringTO());
+        return "contactAdmin";
+    }
+
+    @PostMapping("/contact-admin")
+    public String sendMailToAdmin(@ModelAttribute StringTO messageForAdmin) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo("alexa.murgoci@gmail.com");
+        mailMessage.setSubject("Maxima Libri Admin Contacted");
+        mailMessage.setFrom("alexa.murgoci@gmail.com");
+        mailMessage.setText(messageForAdmin.getStringParameter());
+
+        emailSenderService.sendEmail(mailMessage);
+        return "redirect:/index";
     }
 }
