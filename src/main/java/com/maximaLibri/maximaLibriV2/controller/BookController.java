@@ -94,6 +94,7 @@ public class BookController {
     @RequestMapping(value="/show", method = RequestMethod.POST)
     public String bookShowRateBook(//Model model, //@PathVariable(required = true, name = "isbn") String isbn,
                                    @ModelAttribute("bookRating") BookRating bookRating) {
+        if(!(bookRating.getBookRating()>=1 && bookRating.getBookRating()<=10)) return "redirect:/index";
         bookService.saveBookRating(bookRating);
         return "redirect:/book/review/"+bookRating.getBookRatingId().getIsbn();
     }
