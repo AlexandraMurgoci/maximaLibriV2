@@ -1,11 +1,14 @@
 package com.maximaLibri.maximaLibriV2.service;
 
 import com.maximaLibri.maximaLibriV2.dto.IBookAndRating;
+import com.maximaLibri.maximaLibriV2.dto.IBookReview;
 import com.maximaLibri.maximaLibriV2.model.Book;
 import com.maximaLibri.maximaLibriV2.model.BookRating;
 import com.maximaLibri.maximaLibriV2.model.BookRatingId;
+import com.maximaLibri.maximaLibriV2.model.Review;
 import com.maximaLibri.maximaLibriV2.repository.BookRatingRepository;
 import com.maximaLibri.maximaLibriV2.repository.BookRepository;
+import com.maximaLibri.maximaLibriV2.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,8 @@ public class BookService {
     private BookRepository bookRepository;
     @Autowired
     private BookRatingRepository bookRatingRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
@@ -130,5 +135,21 @@ public class BookService {
         }
         if(keywordList==null) keywordList = new ArrayList<>();
         return keywordList;
+    }
+
+    public Review getReview(Long userId, String isbn) {
+        return reviewRepository.findByUserIdAndIsbn(userId,isbn);
+    }
+
+    public void saveReview(Review review) {
+        reviewRepository.save(review);
+    }
+
+    public List<IBookReview> getReviewsForBook(String isbn) {
+        return reviewRepository.findReviewsForBook(isbn);
+    }
+
+    public void deleteReview(Long id) {
+        reviewRepository.deleteById(id);
     }
 }

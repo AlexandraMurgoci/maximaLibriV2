@@ -62,6 +62,11 @@
         </div>
         <button type="submit" class="btn btn-primary">Rate!</button>
     </form>
+
+    <div th:each="iReview: ${iBookReviewList}">
+        <p th:text="${iReview.getUsername()}"></p>
+        <p th:text="${iReview.getText()}"></p>
+    </div>
 </div>
 
 </body>

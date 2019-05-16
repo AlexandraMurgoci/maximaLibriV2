@@ -87,6 +87,7 @@ public class BookController {
             bookRating.setBookRating(0);
         }
         model.addAttribute("bookRating",bookRating);
+        model.addAttribute("iBookReviewList",bookService.getReviewsForBook(isbn));
         return "bookShow";
     }
 
@@ -94,6 +95,22 @@ public class BookController {
     public String bookShowRateBook(//Model model, //@PathVariable(required = true, name = "isbn") String isbn,
                                    @ModelAttribute("bookRating") BookRating bookRating) {
         bookService.saveBookRating(bookRating);
+        return "redirect:/book/review/"+bookRating.getBookRatingId().getIsbn();
+    }
+
+    @GetMapping(value = "/review/{isbn}")
+    public String reviewBook(Model model, @PathVariable String isbn) {
+        addRoleToModel(model);
+        User user = userService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Review review = bookService.getReview(user.getId(), isbn);
+        if(review!=null) model.addAttribute("review",review);
+        else model.addAttribute("review",new Review(user.getId(),isbn));
+        return "bookReview";
+    }
+
+    @PostMapping(value = "/review")
+    public String postReviewBook(@ModelAttribute Review review) {
+        bookService.saveReview(review);
         return "redirect:/index";
     }
 }

@@ -1,8 +1,10 @@
 package com.maximaLibri.maximaLibriV2.service;
 
+import com.maximaLibri.maximaLibriV2.dto.IBookReview;
 import com.maximaLibri.maximaLibriV2.dto.UserRegistrationDto;
 import com.maximaLibri.maximaLibriV2.model.*;
 import com.maximaLibri.maximaLibriV2.repository.BookRatingRepository;
+import com.maximaLibri.maximaLibriV2.repository.ReviewRepository;
 import com.maximaLibri.maximaLibriV2.repository.RoleRepository;
 import com.maximaLibri.maximaLibriV2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
@@ -111,5 +116,9 @@ public class UserService implements UserDetailsService {
         User user = findById(id);
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public List<IBookReview> getReviewsByUser(Long id) {
+        return reviewRepository.findReviewsByUser(id);
     }
 }

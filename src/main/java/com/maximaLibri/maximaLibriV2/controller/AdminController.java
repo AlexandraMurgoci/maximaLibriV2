@@ -2,6 +2,7 @@ package com.maximaLibri.maximaLibriV2.controller;
 
 import com.maximaLibri.maximaLibriV2.dto.StringTO;
 import com.maximaLibri.maximaLibriV2.model.User;
+import com.maximaLibri.maximaLibriV2.service.BookService;
 import com.maximaLibri.maximaLibriV2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,8 @@ public class AdminController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    BookService bookService;
 
     @GetMapping("/user/{id}")
     public String showUser(Model model, @PathVariable Long id) {
@@ -25,6 +28,7 @@ public class AdminController {
         StringTO userId = new StringTO();
         userId.setStringParameter(user.getId().toString());
         model.addAttribute("userId", userId);
+        model.addAttribute("iBookReviewList",userService.getReviewsByUser(id));
         return "userAdminView";
     }
 
@@ -37,6 +41,12 @@ public class AdminController {
     @PostMapping("/enable-user")
     public String enableUser(@ModelAttribute StringTO userId) {
         userService.enableUserById(Long.valueOf(userId.getStringParameter()));
+        return "redirect:/user";
+    }
+
+    @GetMapping("/review/delete/{id}")
+    public String deleteReview(@PathVariable Long id) {
+        bookService.deleteReview(id);
         return "redirect:/user";
     }
 }
