@@ -37,6 +37,9 @@
     </div>
 </nav>
 
+<br/>
+<br/>
+<br/>
 <h2>Contact Admin</h2>
 <form id="messageForAdmin" class="form-group" th:action="@{/contact-admin}" th:object="${messageForAdmin}" method="post">
     <textarea  rows = "20" cols = "80" th:field = "*{stringParameter}" form = "messageForAdmin" >... </textarea>

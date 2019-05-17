@@ -35,9 +35,13 @@
     </div>
 </nav>
 
-<h1></h1>
+<br/>
+<br/>
+<br/>
 <h2>Hello!</h2>
+<label>Username</label>
 <p th:text="${user.username}">Isbn</p>
+<label>Email</label>
 <p th:text="${user.email}">Title</p>
 
 <div th:if="${role} == 'ROLE_ADMIN'">
@@ -47,6 +51,7 @@
     </form>
 </div>
 
+<h3>History</h3>
 <table class="table">
     <thead>
     <tr>
@@ -69,20 +74,77 @@
 </table>
 
 <div th:if="${isRecommendation} == true">
-    <p>Let us recommend you some new books you might like!</p>
-<div th:each="book : ${RecommendationsList}">
-    <p th:text="${book.getIsbn()}">Isbn</p>
-    <a th:href="@{/book/show/__${book.getIsbn()}__}"><p th:text="${book.getBook_Title()}">Title</p></a>
-    <p th:text="${book.getBook_Author()}">Author</p>
-    <p th:text="${book.getYear_Of_Publication()}">Year of publication</p>
-    <p th:text="${book.getPublisher()}">Publisher</p>
-    <p th:text="${book.getAverage()}">Rating</p>
-    <img th:src="@{${book.getImage_Url_M()}}"/>
-</div>
+    <h3><p>Let us recommend you some new books you might like!</p></h3>
+    <div class="container">
+        <!--<div th:each="book : ${RecommendationsList}" class="col-md-1">-->
+            <!--<p th:text="${book.getIsbn()}">Isbn</p>-->
+            <!--<a th:href="@{/book/show/__${book.getIsbn()}__}"><p th:text="${book.getBook_Title()}">Title</p></a>-->
+            <!--<p th:text="${book.getBook_Author()}">Author</p>-->
+            <!--<p th:text="${book.getYear_Of_Publication()}">Year of publication</p>-->
+            <!--<p th:text="${book.getPublisher()}">Publisher</p>-->
+            <!--<p th:text="${book.getAverage()}">Rating</p>-->
+            <!--<img th:src="@{${book.getImage_Url_M()}}"/>-->
+        <!--</div>-->
+        <div  class="col-md-8">
+            <a th:href="@{/book/show/__${RecommendationsList[0].getIsbn()}__}"><p th:text="${RecommendationsList[0].getBook_Title()}">Title</p></a>
+            <p th:text="${RecommendationsList[0].getIsbn()}">Isbn</p>
+            <p th:text="${RecommendationsList[0].getBook_Author()}">Author</p>
+            <p th:text="${RecommendationsList[0].getYear_Of_Publication()}">Year of publication</p>
+            <p th:text="${RecommendationsList[0].getPublisher()}">Publisher</p>
+            <p th:text="${RecommendationsList[0].getAverage()}">Rating</p>
+            <img th:src="@{${RecommendationsList[0].getImage_Url_M()}}"/>
+            <br/>
+            <br/>
+        </div>
+        <div  class="col-md-4">
+            <a th:href="@{/book/show/__${RecommendationsList[1].getIsbn()}__}"><p th:text="${RecommendationsList[1].getBook_Title()}">Title</p></a>
+            <p th:text="${RecommendationsList[1].getIsbn()}">Isbn</p>
+            <p th:text="${RecommendationsList[1].getBook_Author()}">Author</p>
+            <p th:text="${RecommendationsList[1].getYear_Of_Publication()}">Year of publication</p>
+            <p th:text="${RecommendationsList[1].getPublisher()}">Publisher</p>
+            <p th:text="${RecommendationsList[1].getAverage()}">Rating</p>
+            <img th:src="@{${RecommendationsList[1].getImage_Url_M()}}"/>
+            <br/>
+            <br/>
+        </div>
+        <div  class="col-md-4">
+            <a th:href="@{/book/show/__${RecommendationsList[2].getIsbn()}__}"><p th:text="${RecommendationsList[2].getBook_Title()}">Title</p></a>
+            <p th:text="${RecommendationsList[2].getIsbn()}">Isbn</p>
+            <p th:text="${RecommendationsList[2].getBook_Author()}">Author</p>
+            <p th:text="${RecommendationsList[2].getYear_Of_Publication()}">Year of publication</p>
+            <p th:text="${RecommendationsList[2].getPublisher()}">Publisher</p>
+            <p th:text="${RecommendationsList[2].getAverage()}">Rating</p>
+            <img th:src="@{${RecommendationsList[2].getImage_Url_M()}}"/>
+            <br/>
+            <br/>
+        </div>
+        <div  class="col-md-4">
+            <a th:href="@{/book/show/__${RecommendationsList[3].getIsbn()}__}"><p th:text="${RecommendationsList[3].getBook_Title()}">Title</p></a>
+            <p th:text="${RecommendationsList[3].getIsbn()}">Isbn</p>
+            <p th:text="${RecommendationsList[3].getBook_Author()}">Author</p>
+            <p th:text="${RecommendationsList[3].getYear_Of_Publication()}">Year of publication</p>
+            <p th:text="${RecommendationsList[3].getPublisher()}">Publisher</p>
+            <p th:text="${RecommendationsList[3].getAverage()}">Rating</p>
+            <img th:src="@{${RecommendationsList[3].getImage_Url_M()}}"/>
+            <br/>
+            <br/>
+        </div>
+        <div  class="col-md-4">
+            <a th:href="@{/book/show/__${RecommendationsList[4].getIsbn()}__}"><p th:text="${RecommendationsList[4].getBook_Title()}">Title</p></a>
+            <p th:text="${RecommendationsList[4].getIsbn()}">Isbn</p>
+            <p th:text="${RecommendationsList[4].getBook_Author()}">Author</p>
+            <p th:text="${RecommendationsList[4].getYear_Of_Publication()}">Year of publication</p>
+            <p th:text="${RecommendationsList[4].getPublisher()}">Publisher</p>
+            <p th:text="${RecommendationsList[4].getAverage()}">Rating</p>
+            <img th:src="@{${RecommendationsList[4].getImage_Url_M()}}"/>
+            <br/>
+            <br/>
+        </div>
+    </div>
 </div>
 
 <div th:if="${isRecommendation} == false">
-    <p>Rate at least 3 books so we can recommend you some new ones! :D</p>
+    <h3><p>Rate at least 3 books so we can recommend you some new ones! :D</p></h3>
 </div>
 
 </body>

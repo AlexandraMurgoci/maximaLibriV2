@@ -36,7 +36,9 @@
     </div>
 </nav>
 
-<h2>Text hidden by navbar</h2>
+<br/>
+<br/>
+<br/>
 <form id="reviewBook" th:if="${role} == 'ROLE_USER' or ${role} == 'ROLE_ADMIN'" class="form-group" th:action="@{/book/review}" th:object="${review}" method="post">
 
     <div class="form-group">

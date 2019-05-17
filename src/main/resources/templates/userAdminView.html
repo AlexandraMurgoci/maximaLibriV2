@@ -35,8 +35,12 @@
     </div>
 </nav>
 
-<h2>Maxima Libri</h2>
+<br/>
+<br/>
+<br/>
+<label>Username</label>
 <p th:text="${user.username}">Isbn</p>
+<label>Email</label>
 <p th:text="${user.email}">Title</p>
 
 <div th:if="${user.enabled}">
@@ -51,6 +55,7 @@
         <input type="submit" value="Enable user" class="btn btn-primary"/>
     </form>
 </div>
+<h3>Reviews</h3>
 <div th:each="iReview: ${iBookReviewList}">
     <p th:text="${iReview.getText()}"></p>
     <p><a th:href="@{/admin/review/delete/__${iReview.getReview_Id()}__}">Delete</a></p>

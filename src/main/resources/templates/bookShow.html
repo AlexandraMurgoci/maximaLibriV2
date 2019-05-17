@@ -36,10 +36,13 @@
     </div>
 </nav>
 
+<br/>
+<br/>
+<br/>
+
 <div>
-    <h2>Text hidden by navbar</h2>
+    <h4><p th:text="${book.getBook_Title()}">Title</p></h4>
     <p th:text="${book.getIsbn()}">Isbn</p>
-    <p th:text="${book.getBook_Title()}">Title</p>
     <p th:text="${book.getBook_Author()}">Author</p>
     <p th:text="${book.getYear_Of_Publication()}">Year of publication</p>
     <p th:text="${book.getPublisher()}">Publisher</p>
@@ -63,6 +66,7 @@
         <button type="submit" class="btn btn-primary">Rate!</button>
     </form>
 
+    <h3>Reviews</h3>
     <div th:each="iReview: ${iBookReviewList}">
         <p th:text="${iReview.getUsername()}"></p>
         <p th:text="${iReview.getText()}"></p>

@@ -37,6 +37,7 @@
 
 <br>
 <br>
+<br/>
 <div class="container">
 
     <h2></h2>
@@ -60,14 +61,16 @@
         <input type="submit" value="Search" class="btn btn-primary"/>
     </form>
 
-    <div th:each="book : ${bookList}">
-        <p th:text="${book.getIsbn()}">Isbn</p>
-        <a th:href="@{/book/show/__${book.getIsbn()}__}"><p th:text="${book.getBook_Title()}">Title</p></a>
-        <p th:text="${book.getBook_Author()}">Author</p>
-        <p th:text="${book.getYear_Of_Publication()}">Year of publication</p>
-        <p th:text="${book.getPublisher()}">Publisher</p>
-        <p th:text="${book.getAverage()}">Rating</p>
-        <img th:src="@{${book.getImage_Url_M()}}"/>
+    <div class="container">
+        <div th:each="book : ${bookList}" class="col-md-6">
+            <h5><a th:href="@{/book/show/__${book.getIsbn()}__}"><p th:text="${book.getBook_Title()}">Title</p></a></h5>
+            <p th:text="${book.getIsbn()}">Isbn</p>
+            <p th:text="${book.getBook_Author()}">Author</p>
+            <p th:text="${book.getYear_Of_Publication()}">Year of publication</p>
+            <p th:text="${book.getPublisher()}">Publisher</p>
+            <p th:text="${book.getAverage()}">Rating</p>
+            <img th:src="@{${book.getImage_Url_M()}}"/>
+        </div>
     </div>
 
 </div>
