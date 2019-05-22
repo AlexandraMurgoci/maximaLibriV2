@@ -21,6 +21,7 @@ public class AddDescriptionAndKeywordsForBooks {
     @Autowired
     BookRepository bookRepository;
 
+    /** script care sa completeze baza de date cu descrierile (parsate de pe goodreads) si cuvinetele cheie (generate de un api extern) ale cartilor din baza de date*/
     //@EventListener(ApplicationReadyEvent.class)
     public void addDescriptionAndKeywordsForBooks() {
 

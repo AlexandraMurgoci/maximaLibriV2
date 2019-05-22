@@ -11,7 +11,10 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<Book, String> {
 
+
     //List<Book> findTopByTitle10OrderByTitle(String title);
+
+    /** return list of items that contain the parameter in the isbn, title or author*/
     @Query(value = "SELECT bx_books.isbn, book_title, book_author, year_of_publication, publisher, image_url_s, image_url_m, image_url_l, average\n" +
             "FROM public.bx_books,\n" +
             "(SELECT isbn,ROUND(AVG(book_rating),2) as average\n" +

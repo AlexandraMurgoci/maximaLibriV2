@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 @Component
 public class AddRoleToModel {
+    /** adauga rolul utilizitatorului ca atribut modelului trimis catre front-end */
     public static void addRoleToModel(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication.getAuthorities().contains(new SimpleGrantedAuthority(RoleName.ROLE_USER.toString()))) {

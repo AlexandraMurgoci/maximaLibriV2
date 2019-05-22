@@ -53,6 +53,7 @@ public class BookService {
         return bookRatingRepository.findBookAndRatingById(isbn);
     }
 
+    /** intoarce votul pe care un user identificat prin id l-a dat unei carti, indentificate prin isbn */
     public BookRating getBookRatingByUserAndIsbn(String isbn, Long userId) {
         BookRatingId bookRatingId = new BookRatingId();
         bookRatingId.setUserId(userId);
@@ -61,6 +62,7 @@ public class BookService {
         return optionalBookRating.orElse(null);
     }
 
+    /** salveaza un vot al unei carti in baza de date, dat de un user indentificat prin id */
     public void saveBookRating(Long userId, String isbn, Integer rating) {
         BookRatingId bookRatingId = new BookRatingId();
         bookRatingId.setUserId(userId);
@@ -80,6 +82,7 @@ public class BookService {
         return bookRepository.findSearchResults(searchParameter);
     }
 
+    /** returns the description of a book parsed from the book's page on goodreads */
     public String getBookDescription(String isbn) {
         StringBuffer description = null;
         try {
@@ -124,6 +127,7 @@ public class BookService {
         else return "";
     }
 
+    /** genereaza cuvinte cheie folosind un api extern dintr-un string ce reprezinta descrierea cartii */
     public List<String> getKeywordsForBook(String description) {
         App pd = new App("UlQbgmtuLUkMygYSueumxD40Ve4znCI0DedqdJxD1uE");
         List<String> keywordList = null;
@@ -137,6 +141,7 @@ public class BookService {
         return keywordList;
     }
 
+    /** intoarce review-ul pe care un user, identificat prin id, l-a lasat unei carti identificate prin isbn */
     public Review getReview(Long userId, String isbn) {
         return reviewRepository.findByUserIdAndIsbn(userId,isbn);
     }
@@ -145,6 +150,7 @@ public class BookService {
         reviewRepository.save(review);
     }
 
+    /** intoarce lista tuturor review-urilor primite de o carte identificata prin isbn */
     public List<IBookReview> getReviewsForBook(String isbn) {
         return reviewRepository.findReviewsForBook(isbn);
     }

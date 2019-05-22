@@ -1,0 +1,241 @@
+@startuml
+
+title __MODEL's Class Diagram__\n
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        class Book {
+            - isbn : String
+            - title : String
+            - author : String
+            - yearOfPublication : Integer
+            - publisher : String
+            - imageUrlS : String
+            - imageUrlM : String
+            - imageUrlL : String
+            + Book()
+            + Book()
+            + getIsbn()
+            + setIsbn()
+            + getTitle()
+            + setTitle()
+            + getAuthor()
+            + setAuthor()
+            + getYearOfPublication()
+            + setYearOfPublication()
+            + getPublisher()
+            + setPublisher()
+            + getImageUrlS()
+            + setImageUrlS()
+            + getImageUrlM()
+            + setImageUrlM()
+            + getImageUrlL()
+            + setImageUrlL()
+            + equals()
+            + hashCode()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        class BookRating {
+            - bookRating : Integer
+            + BookRating()
+            + getBookRatingId()
+            + setBookRatingId()
+            + getBookRating()
+            + setBookRating()
+            + equals()
+            + hashCode()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        class BookRatingId {
+            - userId : Long
+            - isbn : String
+            + BookRatingId()
+            + getUserId()
+            + setUserId()
+            + getIsbn()
+            + setIsbn()
+            + equals()
+            + hashCode()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        class BxUser {
+            - id : Long
+            - location : String
+            - age : Integer
+            + BxUser()
+            + BxUser()
+            + getId()
+            + setId()
+            + getLocation()
+            + setLocation()
+            + getAge()
+            + setAge()
+            + equals()
+            + hashCode()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        class ConfirmationToken {
+            - tokenId : Long
+            - confirmationToken : String
+            - createdDate : Date
+            + ConfirmationToken()
+            + ConfirmationToken()
+            + getTokenId()
+            + setTokenId()
+            + getConfirmationToken()
+            + setConfirmationToken()
+            + getCreatedDate()
+            + setCreatedDate()
+            + getUser()
+            + setUser()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        class Review {
+            - id : Long
+            - userId : Long
+            - isbn : String
+            - text : String
+            + Review()
+            + Review()
+            + getId()
+            + setId()
+            + getUserId()
+            + setUserId()
+            + getIsbn()
+            + setIsbn()
+            + getText()
+            + setText()
+            + equals()
+            + hashCode()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        class Role {
+            - id : Long
+            + Role()
+            + Role()
+            + getId()
+            + setId()
+            + getName()
+            + setName()
+            + equals()
+            + hashCode()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        enum RoleName {
+          ROLE_USER
+          ROLE_ADMIN
+        }
+      }
+    }
+  }
+  
+
+  package  {
+    package com.maximaLibri.maximaLibriV2 {
+      package com.maximaLibri.maximaLibriV2.model {
+        class User {
+            - id : Long
+            - email : String
+            - username : String
+            - password : String
+            - location : String
+            - age : Integer
+            - enabled : Boolean
+            - roles : Collection<Role>
+            + User()
+            + User()
+            + getEnabled()
+            + setEnabled()
+            + getId()
+            + setId()
+            + getLocation()
+            + setLocation()
+            + getAge()
+            + setAge()
+            + getEmail()
+            + setEmail()
+            + getPassword()
+            + setPassword()
+            + getUsername()
+            + setUsername()
+            + getRoles()
+            + setRoles()
+            + equals()
+            + hashCode()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  BookRating o-- BookRatingId : bookRatingId
+  BookRatingId -up-|> Serializable
+  ConfirmationToken o-- User : user
+  Role o-- RoleName : name
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

@@ -50,6 +50,7 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    /** extrage si salveaza userul din formatul datelor din register */
     public User save(UserRegistrationDto registration){
         User user = new User();
         user.setUsername(registration.getUsername());
@@ -82,10 +83,12 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
+    /** intoarce istoricul voturilor unui user identificat prin id */
     public List<BookRating> getHistory(Long userId) {
         return bookRatingRepository.findRatingsByUserId(userId);
     }
 
+    /** inregistreaza un vot in baza de date */
     public void rateBook(String isbn, Long userId, Integer rating) {
         BookRating bookRating = new BookRating();
         BookRatingId bookRatingId = new BookRatingId();
@@ -118,6 +121,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    /** intoarce istoricul review-urilor unui user identificat prin id */
     public List<IBookReview> getReviewsByUser(Long id) {
         return reviewRepository.findReviewsByUser(id);
     }
